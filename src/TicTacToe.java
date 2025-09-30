@@ -1,3 +1,4 @@
+
 public class TicTacToe {
     String[][] field;
     String nowPlayer;
@@ -11,13 +12,14 @@ public class TicTacToe {
         nowPlayer = "X";
     }
 
-    String[][] getField() {
-        return field;
-    }
-
     String makeMove(int x, int y) {
         x -= 1;
         y -= 1;
+
+        // Check if coordinates are valid
+        if (x < 0 || x > 2 || y < 0 || y > 2) {
+            return "Invalid coordinates. Please use numbers between 1 and 3.";
+        }
 
         // Check if game is already over
         String gameStatus = this.checkGame();
@@ -35,12 +37,12 @@ public class TicTacToe {
         gameStatus = checkGame();
         if (gameStatus != null) {
             if (gameStatus.equals("X")) return "Player X won";
-            else if (gameStatus.equals("O")) return "Player O won"; // Fixed: "O" instead of "0"
+            else if (gameStatus.equals("O")) return "Player O won";
             else return "Draw";
         }
 
         // Switch player
-        nowPlayer = nowPlayer.equals("X") ? "O" : "X"; // Fixed: "O" instead of "0"
+        nowPlayer = nowPlayer.equals("X") ? "O" : "X";
         return "Move completed";
     }
 
@@ -91,5 +93,18 @@ public class TicTacToe {
         }
 
         return "D"; // Draw
+    }
+
+    void printField() {
+        System.out.println("\nCurrent board:");
+        System.out.println("  1 2 3");
+        for (int i = 0; i < 3; i++) {
+            System.out.print((i + 1) + " ");
+            for (int j = 0; j < 3; j++) {
+                System.out.print(field[i][j] + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
     }
 }
